@@ -47,6 +47,12 @@ public class ApplicationController {
 	public void write(HttpServletRequest servletRequest,HttpServletResponse servletResponse) throws IOException {
 		InputStream inputStream = servletRequest.getInputStream();
 		String message = IOUtils.toString(inputStream);
-		messageService.sendMessage(message);
+		messageService.sendMessagePayment(message);
+	}
+	@RequestMapping(value = "/writeEmail",method = RequestMethod.POST)
+	public void writeEmail(HttpServletRequest servletRequest,HttpServletResponse servletResponse) throws IOException {
+		InputStream inputStream = servletRequest.getInputStream();
+		String message = IOUtils.toString(inputStream);
+		messageService.sendMessageEmail(message);
 	}
 }
