@@ -28,7 +28,12 @@ public class ApplicationController {
 
 	@Autowired
 	private MessageService messageService; 
+	
+	@RequestMapping(value="/healthCheck", method=RequestMethod.GET)
+	public ResponseEntity<String> healthCheck( ) {
 
+		return new ResponseEntity<String>("Hello Micro Services ", HttpStatus.OK);
+	}
 	@RequestMapping(value="/getAllMedicine", method=RequestMethod.GET)
 	public ResponseEntity<List<MedicineStore>> getAllMedicine( ) {
 		List<MedicineStore > medicineStores= null; //medicineStroreService.findAllMedicine();
@@ -54,5 +59,11 @@ public class ApplicationController {
 		InputStream inputStream = servletRequest.getInputStream();
 		String message = IOUtils.toString(inputStream);
 		messageService.sendMessageEmail(message);
+	}
+	
+	@RequestMapping(value = "/sayHello",method = RequestMethod.GET)
+	public ResponseEntity<String> sayHello(@RequestParam(value="hello",required=false) String hello) throws IOException {
+		
+		return new ResponseEntity<String>(hello,HttpStatus.OK);
 	}
 }
